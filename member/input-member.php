@@ -32,16 +32,8 @@ if ($_POST['submit'] == "Input") {
         $foto = base64_encode($filecontent);
         $foto_rot13 = rot13_encrypt($foto);
         $encryptedFoto = openssl_encrypt($foto_rot13, $encryptionMethod, $encryptionKey, 0, $iv);
-
-        $photoFilePath = '/berkas/'; // Change this path to your desired directory
-        file_put_contents($photoFilePath, $encryptedFoto);
-
         if ($photoFilePath === false) {
             echo "Error saving the encrypted photo to a file";
-        }
-        if ($encryptedFoto === false) {
-            $error = openssl_error_string();
-            echo "Error encrypting the photo: $error";
         }
 
         $ktp = null;
