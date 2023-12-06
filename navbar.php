@@ -35,11 +35,11 @@
             </div>        
             <div class="navigation">
             <ul class="menu">
-                <li class="menu-item"><a href="../login-signup/form-view-member.php">Anggota</a></li>
-                <li class="menu-item"><a href="../login-signup/list-tabungan.php">Tabungan</a></li>
-                <li class="menu-item"><a href="../login-signup/list-pinjaman.php">Pinjaman</a></li>
-                <li class="menu-item"><a href="../login-signup/print.php">Cetak</a></li>
-                <li class="menu-item"><a href="../login-signup/logout.php">Log Out</a></li>
+                <li class="menu-item"><a href="form-view-member.php">Anggota</a></li>
+                <li class="menu-item"><a href="list-tabungan.php">Tabungan</a></li>
+                <li class="menu-item"><a href="list-pinjaman.php">Pinjaman</a></li>
+                <li class="menu-item"><a href="print.php">Cetak</a></li>
+                <li class="menu-item"><a href="logout.php">Log Out</a></li>
             </ul>
         </div>
     </header>

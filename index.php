@@ -10,7 +10,7 @@
 
     <style>
         body {
-            background-image: url("../login-signup/image/background.jpg");
+            background-image: url("image/background.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -35,7 +35,7 @@
 
         <form class="shadow w-450 p-3" style="background-color: rgba(255, 255, 255, 0.9);" action="php/signup.php" method="post">
 
-            <img src="../login-signup/image/logo.png" alt="Logo" class="img-fluid mx-auto d-block mb-3" style="max-width: 150px;">
+            <img src="image/logo.png" alt="Logo" class="img-fluid mx-auto d-block mb-3" style="max-width: 150px;">
 
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-danger" role="alert">

@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            background-image: url("../login-signup/image/background.jpg");
+            background-image: url("image/background.jpg");
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -33,7 +33,7 @@
 
         <form class="shadow w-450 p-3" style="background-color: rgba(255, 255, 255, 0.9);" action="php/login.php" method="post">
 
-            <img src="../login-signup/image/logo.png" alt="Logo" class="img-fluid mx-auto d-block mb-3" style="max-width: 150px;">
+            <img src="image/logo.png" alt="Logo" class="img-fluid mx-auto d-block mb-3" style="max-width: 150px;">
 
             <?php if (isset($_GET['error'])) { ?>
                 <div class="alert alert-danger" role="alert">
