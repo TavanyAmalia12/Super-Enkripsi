@@ -69,7 +69,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
             </tr>
 
             <?php
-            $Cari_pinjam = "SELECT * FROM anggota WHERE pinjaman > 0";
+            $Cari_pinjam = "SELECT * FROM member WHERE pinjaman > 0";
             $Tampil_pinjam = $conn->query($Cari_pinjam);
             $nomer = 0;
             $totalLoan = 0;
@@ -113,7 +113,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
             </tr>
             <?php
                 include 'database.php';
-                $Cari_tabung = "SELECT * FROM anggota WHERE tabungan_wajib > 0";
+                $Cari_tabung = "SELECT * FROM member WHERE tabungan_wajib > 0";
                 $Tampil_tabung = $conn->query($Cari_tabung);
                 $nomer = 0;
                 $totalTabunganPokok = 0;
