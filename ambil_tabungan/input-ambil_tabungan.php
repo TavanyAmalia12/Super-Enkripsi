@@ -23,8 +23,6 @@ if (empty($jml_ambil)) {
 } else {
     try {
         $conn->beginTransaction();
-
-        // Insert ambil_tabungan data into the database
         $input = "INSERT INTO ambil (id_ambil, username, nama, tgl_ambil, jenis_tabungan, jml_ambil) VALUES (:id_ambil, :username, :nama, :tgl_ambil, :jenis_tabungan, :jml_ambil)";
         $stmtInput = $conn->prepare($input);
         $stmtInput->bindParam(':id_ambil', $id_ambil);

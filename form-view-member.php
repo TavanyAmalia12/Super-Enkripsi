@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the 'fname' key exists in the $_SESSION array
 $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 ?>
 <!DOCTYPE html>
@@ -43,16 +42,20 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
             while ($hasil = $Tampil->fetch(PDO::FETCH_ASSOC)) {
                 $id_member = $hasil['id_member'];
-                $username = $hasil['username']; // Get the encrypted data from the database
+                $username = $hasil['username'];
                 $nama = $hasil['nama'];
                 $nik = $hasil['nik'];
                 $no_hp = $hasil['no_hp'];
 
-                // Decrypt data using OpenSSL and then ROT13
-                $decryptedUsername = rot13_decrypt(openssl_decrypt($username, $encryptionMethod, $encryptionKey, 0, $iv));
-                $decryptedNama = rot13_decrypt(openssl_decrypt($nama, $encryptionMethod, $encryptionKey, 0, $iv));
-                $decryptedNik = rot13_decrypt(openssl_decrypt($nik, $encryptionMethod, $encryptionKey, 0, $iv));
-                $decryptedNoHp = rot13_decrypt(openssl_decrypt($no_hp, $encryptionMethod, $encryptionKey, 0, $iv));
+                $username_aes = openssl_decrypt($username, $encryptionMethod, $encryptionKey, 0, $iv);
+                $nama_aes = openssl_decrypt($nama, $encryptionMethod, $encryptionKey, 0, $iv);
+                $nik_aes =  openssl_decrypt($nik, $encryptionMethod, $encryptionKey, 0, $iv);
+                $no_hp_aes = openssl_decrypt($no_hp, $encryptionMethod, $encryptionKey, 0, $iv);
+
+                $decryptedUsername = rot13_decrypt($username_aes);
+                $decryptedNama = rot13_decrypt($nama_aes);
+                $decryptedNik = rot13_decrypt($nik_aes);
+                $decryptedNoHp = rot13_decrypt($no_hp_aes);
                 $nomer++;
             ?>
                 <tr align="center" bgcolor="#DFE6EF">

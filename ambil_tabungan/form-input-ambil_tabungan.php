@@ -1,9 +1,3 @@
-<?php
-session_start();
-
-// Check if the 'fname' key exists in the $_SESSION array
-$fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +18,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 </head>
 
 <body style="background-color: #F6FFFF;">
-<?php
-include("../navbar.php");
-?>
+
 <div style="border: 3px solid black; padding: 10px; width: 700px; margin: 150px auto; text-align: center; background-color: white;">
     <?php
     include "../database.php";
@@ -47,7 +39,7 @@ include("../navbar.php");
     ?>
             <form action="input-ambil_tabungan.php" method="post" name="form-input-ambil_tabungan">
             <input type="hidden" name="id_member" value="<?= $id_member ?>">
-            <h2 style="color: #042331; text-align: center ;">Form Ambil Tabungan</h2>
+            <h2 style="color: #042331; text-align: center ; margin: 20px;">Form Ambil Tabungan</h2>
                     <table style=" width: 500; align-items : center;" cellpadding="0" cellspacing="0">
                     <tr>
                             <td width="10%">&nbsp;</td>
@@ -140,31 +132,31 @@ include("../navbar.php");
 </div>
 
 <script type="text/javascript">
-        var jml_ambil_idr = document.getElementById('jml_ambil_idr');
-        var jml_ambil = document.getElementById('jml_ambil'); // Add this line
+    var jml_ambil_idr_input = document.getElementById('jml_ambil_idr');
+    var jml_ambil_input = document.getElementById('jml_ambil');
 
-        jml_ambil_idr.addEventListener('keyup', function(e) {
-            var numericValue = this.value.replace(/[^\d]/g, ''); // Remove non-numeric characters
-            jml_ambil_idr.value = formatRupiah(numericValue, 'Rp. ');
-            jml_ambil.value = numericValue; // Set the raw numeric value
-        });
+    jml_ambil_idr_input.addEventListener('keyup', function(e) {
+        var numericValue = this.value.replace(/[^\d]/g, '');
+        jml_ambil_idr_input.value = formatRupiah(numericValue, 'Rp. ');
+        jml_ambil_input.value = numericValue;
+    });
 
-        function formatRupiah(angka, prefix) {
-            var number_string = angka.toString(),
-                split = number_string.split(','),
-                sisa = split[0].length % 3,
-                jml_ambi;_idr = split[0].substr(0, sisa),
-                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.toString(),
+            split = number_string.split(','),
+            sisa = split[0].length % 3,
+            jml_ambil_idr = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                jml_ambil_idr += separator + ribuan.join('.');
-            }
-
-            jml_ambil_idr = split[1] != undefined ? jml_ambil_idr + ',' + split[1] : jml_ambil_idr;
-            return prefix == undefined ? jml_ambil_idr : (jml_ambil_idr ? 'Rp. ' + jml_ambil_idr : '');
+        if (ribuan) {
+            separator = sisa ? '.' : '';
+            jml_ambil_idr += separator + ribuan.join('.');
         }
-    </script>
+
+        jml_ambil_idr = split[1] != undefined ? jml_ambil_idr + ',' + split[1] : jml_ambil_idr;
+        return prefix == undefined ? jml_ambil_idr : (jml_ambil_idr ? 'Rp. ' + jml_ambil_idr : '');
+    }
+</script>
 
 </body>
 </html>

@@ -24,11 +24,9 @@
         <div class="user-info">
                 <i class="fas fa-user"></i>
                 <?php
-            // Check if the 'fname' session variable is set
             if (isset($_SESSION['fname'])) {
                 echo '<span>' . htmlspecialchars($_SESSION['fname']) . '</span>';
             } else {
-                // Handle the case where the user is not logged in
                 echo '<span>Guest</span>';
             }
             ?>            

@@ -14,7 +14,6 @@
             background-position: center;
             position: relative;
             margin: 0;
-            /* Pastikan tidak ada margin pada body */
         }
 
         .w-450 {
@@ -23,7 +22,6 @@
 
         .hv-100 {
             min-height: 100px;
-            /* Anda mungkin ingin menambahkan unit (px) di sini */
         }
     </style>
 </head>

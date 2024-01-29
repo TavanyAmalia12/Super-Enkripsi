@@ -5,9 +5,6 @@ include '../rot13_encrypt.php';
 include '../AES256.php';
 
 if ($_POST['update'] == "Update") {
-    // Proses data yang diterima dari formulir
-    // Lakukan validasi dan sanitasi data yang diterima
-
     $nama = $_POST['nama'];
     $nik = $_POST['nik'];
     $tgl_lahir = $_POST['tgl_lahir'];
@@ -45,7 +42,7 @@ if ($_POST['update'] == "Update") {
             }
         
 
-        $conn = null; // Menutup koneksi PDO
+        $conn = null;
     }
 
 ?>

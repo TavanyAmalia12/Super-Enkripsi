@@ -1,9 +1,3 @@
-<?php
-session_start();
-
-// Check if the 'fname' key exists in the $_SESSION array
-$fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +13,6 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
 <body style="background-color: #F6FFFF;">
     <?php
-    include("../navbar.php");
     include "../database.php";
     include "../rot13_decrypt.php";
     include "../AES256.php";
@@ -57,16 +50,12 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
         $resultBayar = $stmtBayar->fetchAll(PDO::FETCH_ASSOC);
 
         $allResults = array_merge($resultPinjam, $resultBayar);
-
-        // Extract timestamps and create an array to store them
         $timestamps = array_column($allResults, 'tgl');
-
-        // Sort $allResults based on the timestamps
         array_multisort($timestamps, SORT_ASC, $allResults);
     ?>
 
 
-        <div style="border: 0; padding: 10px; width: 924px; height: auto; margin: 100px auto; text-align: center;">
+        <div style="border: 0; padding: 10px; width: 924px; height: auto; margin: 50px auto; text-align: center;">
             <br />
             <h2 style="color: #042331;"><b>List Pinjaman <?= $decryptedUsername ?></b></h2>
             <table width="924" border="0" align="center" cellpadding="0" cellspacing="0">

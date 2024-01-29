@@ -1,9 +1,4 @@
-<?php
-session_start();
 
-// Check if the 'fname' key exists in the $_SESSION array
-$fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,16 +21,11 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 <body style="background-color: #F6FFFF;">
     <?php
     session_start();
-
-    include '../navbar.php';
     include '../rot13_decrypt.php';
     include '../database.php';
     include '../AES256.php';
 
     if (isset($_GET['id_member'])) {
-        // Parameter username yang akan diedit
-
-        // Mengambil data anggota dari databas
 
         $id_member = $_GET['id_member'];
 
@@ -46,10 +36,8 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$result) {
-            // Data tidak ditemukan, beri pesan kesalahan atau redirect ke halaman lain
             echo "Data anggota tidak ditemukan";
         } else {
-            // Decrypt data yang ditemukan
             $decryptedNama = rot13_decrypt(openssl_decrypt($result['nama'], $encryptionMethod, $encryptionKey, 0, $iv));
             $decryptedNik = rot13_decrypt(openssl_decrypt($result['nik'], $encryptionMethod, $encryptionKey, 0, $iv));
             $decryptedTgl_lahir = rot13_decrypt(openssl_decrypt($result['tgl_lahir'], $encryptionMethod, $encryptionKey, 0, $iv));
@@ -58,7 +46,6 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
             $decryptedNoHp = rot13_decrypt(openssl_decrypt($result['no_hp'], $encryptionMethod, $encryptionKey, 0, $iv));
         }
     } else {
-        // Jika parameter username tidak diberikan, beri pesan kesalahan atau redirect ke halaman lain
         echo "Parameter username tidak ditemukan";
     }
     ?>
@@ -69,7 +56,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
             <table style=" width: 500; border: 0; align-items : center;" cellpadding="0" cellspacing="0">
                 <tr height="46">
                     <td colspan="3">
-                        <h2 style="color: #042331; text-align: center ;">Form Edit Member</h2>
+                        <h2 style="color: #042331; text-align: center ; margin: 20px;">Form Edit Member</h2>
                     </td>
                 </tr>
 
@@ -115,7 +102,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
                         </select>
                         <select name="thn_lahir">
                             <?php
-                            for ($i = 2015; $i <= 2050; $i++) {  // Fix the typo here
+                            for ($i = 1945; $i <= 2030; $i++) {
                                 echo "<option value='$i'>$i</option>";
                             }
                             ?>

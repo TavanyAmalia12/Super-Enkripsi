@@ -1,9 +1,3 @@
-<?php
-session_start();
-
-// Check if the 'fname' key exists in the $_SESSION array
-$fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +25,9 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
 <body style="background-color: #F6FFFF;">
     <?php
-    include("../navbar.php");
+    $startTime = microtime(true);
     ?>
-    <div style="border: 3px solid black; padding: 10px; width: 800px; margin: 150px auto; text-align: center; background-color:white;">
+    <div style="border: 3px solid black; padding: 10px; width: 800px; margin: 50px auto; text-align: center; background-color:white;">
         <?php
         include "../database.php";
         include "../rot13_decrypt.php";
@@ -41,39 +35,27 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
         if (isset($_GET['id_member'])) {
             $id_member = $_GET['id_member'];
-
-            // Query the database to get the member details
             $query = "SELECT * FROM member WHERE id_member = :id_member";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(':id_member', $id_member);
             $stmt->execute();
 
-            // Check if the query executed successfully and if there are results
             if ($stmt) {
                 $hasil = $stmt->fetch(PDO::FETCH_ASSOC);
                 if ($hasil) {
                     // Decrypt and display member details
-                    $decryptedUsername_AES = openssl_decrypt($hasil['username'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedNama_AES = openssl_decrypt($hasil['nama'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedNik_AES = openssl_decrypt($hasil['nik'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedTgl_lahir_AES = openssl_decrypt($hasil['tgl_lahir'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedPekerjaan_AES = openssl_decrypt($hasil['pekerjaan'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedAlamat_AES = openssl_decrypt($hasil['alamat'], $encryptionMethod, $encryptionKey, 0, $iv);
-                    $decryptedNoHp_AES = openssl_decrypt($hasil['no_hp'], $encryptionMethod, $encryptionKey, 0, $iv);
-
-                    $decryptedUsername = rot13_decrypt($decryptedUsername_AES);
-                    $decryptedNama = rot13_decrypt($decryptedNama_AES);
-                    $decryptedNik = rot13_decrypt($decryptedNik_AES);
-                    $decryptedTgl_lahir = rot13_decrypt($decryptedTgl_lahir_AES);
-                    $decryptedPekerjaan = rot13_decrypt($decryptedPekerjaan_AES);
-                    $decryptedAlamat = rot13_decrypt($decryptedAlamat_AES);
-                    $decryptedNoHp = rot13_decrypt($decryptedNoHp_AES);
+                    $decryptedUsername = rot13_decrypt(openssl_decrypt($hasil['username'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedNama = rot13_decrypt(openssl_decrypt($hasil['nama'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedNik = rot13_decrypt(openssl_decrypt($hasil['nik'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedTgl_lahir = rot13_decrypt(openssl_decrypt($hasil['tgl_lahir'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedPekerjaan = rot13_decrypt(openssl_decrypt($hasil['pekerjaan'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedAlamat = rot13_decrypt(openssl_decrypt($hasil['alamat'], $encryptionMethod, $encryptionKey, 0, $iv));
+                    $decryptedNoHp = rot13_decrypt(openssl_decrypt($hasil['no_hp'], $encryptionMethod, $encryptionKey, 0, $iv));
 
         ?>
                     <h2 style="color: #042331; text-align: center;">Detail Member <?= $decryptedUsername ?></h2>
 
-                    <?php // Get the photo from the database
-                    // Get the photo from the database
+                    <?php 
                     if (!empty($hasil['foto'])) {
                         $foto_AES = openssl_decrypt($hasil['foto'], $encryptionMethod, $encryptionKey, 0, $iv);
                         $foto_rot13 = rot13_decrypt($foto_AES);
@@ -131,7 +113,6 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
                             <td>KTP</td>
                             <td>
                                 <?php
-                                // Get the KTP from the database
                                 if (!empty($hasil['ktp'])) {
                                     $KTP_AES = openssl_decrypt($hasil['ktp'], $encryptionMethod, $encryptionKey, 0, $iv);
                                     $KTP_rot13 = rot13_decrypt($KTP_AES);
@@ -160,7 +141,6 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
                             <td>Kartu Keluarga</td>
                             <td>
                                 <?php
-                                // Get the KTP from the database
                                 if (!empty($hasil['kk'])) {
                                     $KK_AES = openssl_decrypt($hasil['kk'], $encryptionMethod, $encryptionKey, 0, $iv);
                                     $KK_rot13 = rot13_decrypt($KK_AES);
@@ -196,11 +176,12 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
         } else {
             echo "Error: No ID selected.";
         }
+        
+
         ?>
         <br>
         <input type="button" class="btn btn-secondary" value="Kembali" onclick="location.href='../form-view-member.php'" title="Kembali"> <br /><br />
     </div>
 
 </body>
-
 </html>

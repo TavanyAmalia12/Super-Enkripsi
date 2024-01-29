@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+include '../rot13_encrypt.php';
+include '../AES256.php';
+
 if (isset($_POST['uname']) &&
     isset($_POST['pass'])) {
 
@@ -34,7 +37,9 @@ if (isset($_POST['uname']) &&
             $id = $user['id'];
 
             if($username === $uname){
-                if(password_verify($pass, $password)){
+                $pass_rot13 = rot13_encrypt($pass);
+                $pass_aes = openssl_encrypt($pass_rot13, $encryptionMethod, $encryptionKey, 0, $iv);
+                if($pass_aes === $password){
                     $_SESSION['id'] = $id;
                     $_SESSION['fname'] = $fname;
 

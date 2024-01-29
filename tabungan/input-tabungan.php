@@ -24,7 +24,6 @@ if (empty($jml_tabungan)) {
     try {
         $conn->beginTransaction();
 
-        // Insert tabungan data into the database
         $input = "INSERT INTO tabung (id_tabungan, username, nama, tgl_tabungan, jenis_tabungan, jml_tabungan) VALUES (:id_tabungan, :username, :nama, :tgl_tabungan, :jenis_tabungan, :jml_tabungan)";
         $stmtInput = $conn->prepare($input);
         $stmtInput->bindParam(':id_tabungan', $id_tabungan);
@@ -35,7 +34,6 @@ if (empty($jml_tabungan)) {
         $stmtInput->bindParam(':jml_tabungan', $jml_tabungan);
         $stmtInput->execute();
 
-        // Update tabungan in the anggota table
         if ($jenis_tabungan == 'pokok') {
             $update = "UPDATE member SET tabungan_pokok = tabungan_pokok + :jml_tabungan WHERE username = :encryptedUsername";
         } elseif ($jenis_tabungan == 'wajib') {

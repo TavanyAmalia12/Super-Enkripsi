@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Check if the 'fname' key exists in the $_SESSION array
 $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 ?>
 <!DOCTYPE html>

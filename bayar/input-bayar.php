@@ -23,8 +23,7 @@ if (empty($jml_bayar)) {
     try {
         $conn->beginTransaction();
 
-        // Insert pinjaman data into the database using the provided username
-        $input = "INSERT INTO bayar (id_bayar, username, nama, tgl_bayar, jml_bayar) VALUES (:id_bayar, :username, :nama, :tgl_bayar, :jml_bayar)";
+        $input = "INSERT INTO pembayaran (id_bayar, username, nama, tgl_bayar, jml_bayar) VALUES (:id_bayar, :username, :nama, :tgl_bayar, :jml_bayar)";
         $stmtInput = $conn->prepare($input);
         $stmtInput->bindParam(':id_bayar', $id_bayar);
         $stmtInput->bindParam(':username', $encryptedUsername);
@@ -44,7 +43,7 @@ if (empty($jml_bayar)) {
 
         ?>
         <script language="JavaScript">
-            alert('Data pinjaman berhasil diinput!');
+            alert('Data pembayaran berhasil diinput!');
             document.location = '../list-pinjaman.php';
         </script>
         <?php

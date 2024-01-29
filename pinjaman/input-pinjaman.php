@@ -24,7 +24,6 @@ if (empty($jml_transaksi)) {
     try {
         $conn->beginTransaction();
 
-        // Insert pinjaman data into the database using the provided username
         $input = "INSERT INTO pinjam (id_pinjam, username, nama, tgl_transaksi, jml_transaksi) VALUES (:id_pinjam, :username, :nama, :tgl_transaksi, :jml_transaksi)";
         $stmtInput = $conn->prepare($input);
         $stmtInput->bindParam(':id_pinjam', $id_pinjam);
@@ -34,7 +33,6 @@ if (empty($jml_transaksi)) {
         $stmtInput->bindParam(':jml_transaksi', $jml_transaksi);
         $stmtInput->execute();
 
-        // Update pinjaman in the anggota table
         $update = "UPDATE member SET pinjaman = pinjaman + :jml_transaksi WHERE username = :encryptedUsername";
         $stmtUpdate = $conn->prepare($update);
         $stmtUpdate->bindParam(':jml_transaksi', $jml_transaksi);

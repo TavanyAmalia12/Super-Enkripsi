@@ -1,9 +1,3 @@
-<?php
-session_start();
-
-// Check if the 'fname' key exists in the $_SESSION array
-$fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,9 +18,6 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 </head>
 
 <body style="background-color: #F6FFFF;">
-    <?php
-    include("../navbar.php");
-    ?>
     <div style="border: 3px solid black; padding: 10px; width: 700px; margin: 150px auto; text-align: center; background-color: white;">
         <?php
         include "../database.php";
@@ -46,9 +37,8 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
         ?>
                 <form action="input-pinjaman.php" method="post" name="form-input-pinjaman">
-                    <!-- Add this line inside your form -->
                     <input type="hidden" name="id_member" value="<?= $id_member ?>">
-                    <h2 style="color: #042331; text-align: center ;">Form Input Pinjaman</h2>
+                    <h2 style="color: #042331; text-align: center ; margin: 20px;">Form Input Pinjaman</h2>
                     <table style=" width: 500; align-items : center;" cellpadding="0" cellspacing="0">
                         <tr>
                             <td width="10%">&nbsp;</td>
@@ -96,7 +86,7 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
                                 </select>
                                 <select name="thn_transaksi">
                                     <?php
-                                    for ($i = 2015; $i <= 2050; $i++) {  // Fix the typo here
+                                    for ($i = 2015; $i <= 2050; $i++) {
                                         echo "<option value='$i'>$i</option>";
                                     }
                                     ?>
@@ -130,12 +120,12 @@ $fname = isset($_SESSION['fname']) ? htmlspecialchars($_SESSION['fname']) : '';
 
     <script type="text/javascript">
         var jml_transaksi_idr = document.getElementById('jml_transaksi_idr');
-        var jml_transaksi = document.getElementById('jml_transaksi'); // Add this line
+        var jml_transaksi = document.getElementById('jml_transaksi'); 
 
         jml_transaksi_idr.addEventListener('keyup', function(e) {
-            var numericValue = this.value.replace(/[^\d]/g, ''); // Remove non-numeric characters
+            var numericValue = this.value.replace(/[^\d]/g, ''); 
             jml_transaksi_idr.value = formatRupiah(numericValue, 'Rp. ');
-            jml_transaksi.value = numericValue; // Set the raw numeric value
+            jml_transaksi.value = numericValue; 
         });
 
         function formatRupiah(angka, prefix) {

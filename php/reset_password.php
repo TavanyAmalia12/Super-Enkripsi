@@ -3,6 +3,9 @@
 <?php
 session_start();
 
+include '../rot13_encrypt.php';
+include '../AES256.php';
+
 if (isset($_POST['uname']) &&
     isset($_POST['new_pass']) &&
     isset($_POST['token'])) {
@@ -27,12 +30,12 @@ if (isset($_POST['uname']) &&
         exit;
     }
 
-    $hashed_password = password_hash($new_pass, PASSWORD_BCRYPT);
+    $new_pass_rot13 = rot13_encrypt($new_pass);
+    $new_pass_encrypt = openssl_encrypt($new_pass_rot13, $encryptionMethod, $encryptionKey, 0, $iv);
     $sql = "UPDATE users SET password = ? WHERE username = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$hashed_password, $uname]);
+    $stmt->execute([$new_pass_encrypt, $uname]);
 
-    // Display success alert using JavaScript
     echo '<script>alert("Password reset successfully. Please log in with your new password.");</script>';
 
     header("Location: ../login.php");
